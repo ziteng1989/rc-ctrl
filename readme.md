@@ -51,7 +51,7 @@ export default class MainController extends React.Component {
             <div>
                 {
                     isLoading ? null : list.map(item => {
-                        return <div>{item}</div>
+                        return <div key={item}>{item}</div>
                     })
                 }
             </div>
