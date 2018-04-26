@@ -1,6 +1,6 @@
 ### snapshot
 
-<img height=572 width=426 src="./snapshot.gif">
+<img width=250 src="./snapshot.gif">
 
 ### install
 
