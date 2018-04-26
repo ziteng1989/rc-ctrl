@@ -1,6 +1,6 @@
 ### snapshot
 
-<iframe height=572 width=426 src="./snapshot.mp4">
+<img height=572 width=426 src="./snapshot.gif">
 
 ### install
 
