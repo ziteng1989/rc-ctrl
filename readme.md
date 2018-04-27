@@ -66,7 +66,7 @@ logic.js
 ```jsx
 
 import * as API from './api';
-import { compose, map } from 'ramda';
+import { compose, map, curry } from 'ramda';
 
 export function getInitState() {
     return {
@@ -79,12 +79,33 @@ export function getInitState() {
 export function actions({dispatch}) {
     return {
         increase: dispatch(increase),
-        getList: compose(dispatch(getList), map(result), API.getList)
+        getList: compose(dispatch(getList), map(result), API.getList),
+        getListWithData: function(data) {
+            return compose(dispatch(getListWithData), promiseWithData(data), map(result), API.getList)()
+        }
     }
 }
 
+var promiseWithData = curry((data, promise) => {
+    return {
+        data,
+        promise
+    }
+})
+
 function result(response) {
     return response.result || [];
+}
+
+function getListWithData(state, { payload }, status) {
+    if (status === 'PENDING') {
+        // get data
+        return { ...state, isLoading: true, data: payload }
+    } else if (status === 'REJECTED') {
+        return { ...state, isLoading: false }
+    } else {
+        return { ...state, isLoading: false, list: payload }
+    }
 }
 
 function getList(state, { payload }, status) {
